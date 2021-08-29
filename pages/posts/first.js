@@ -8,6 +8,8 @@ export default function FirstPost() {
                     <a>Home</a>
                 </Link>
             </h2>
+            <br/>
+            <img src="/logo.png" alt="Logo"/>
         </>
     )
 }
