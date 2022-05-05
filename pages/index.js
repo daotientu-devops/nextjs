@@ -1,7 +1,11 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import Router from 'next/router';
+import useSWR from 'swr';
 export default function HomePage(props) {
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
+    const { data, error } = useSWR('http://127.0.0.1:8000/users/count', fetcher, {refreshInterval: 10000});
+    console.log(data);
     return (
         <>
             <Head>
@@ -16,8 +20,7 @@ export default function HomePage(props) {
             <br/>
             <span onClick={()=>Router.push('/?counter=1', undefined, {shallow: true})}>Reload</span>
             <br/>
-            <div>Next stars: {props.stars}</div>   
-            <img src="/logo.png" alt="Logo"/>
+            <div>Total users: {data}</div>
         </>
     )
 }
